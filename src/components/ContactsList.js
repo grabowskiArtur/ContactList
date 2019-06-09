@@ -5,7 +5,7 @@ import ContactItem from './ContactItem';
 class ContactsList extends Component {
 	render() {
 		return (
-			<ul className="ui relaxed divided list selection">
+			<ul className="ui relaxed divided list selection" onMouseOver={this.onMouseOverHandler}>
 				<ContactItem
 					login="typeofweb1"
 					name="Lena"
@@ -22,14 +22,16 @@ class ContactsList extends Component {
 					department="QA"
 				/>
 				<ContactItem
-					login="arturo@wp.pl"
+					login="artur.csik@gmail.com"
 					name="Artur"
 					department="CEO"
 				/>
 			</ul>
-
-
 		)
+	}
+
+	onMouseOverHandler(){
+		console.log("Najechalem na " + this);
 	}
 }
 

@@ -13,12 +13,18 @@ class AppHeader extends Component {
 						Lista kontaktów
 					</a>
 					<div className="header item">
-						<button className="ui button">Dodaj</button>
+						<button className="ui button" onClick={this.onClickHandler}>Dodaj</button>
 					</div>
 				</nav>
 			</header>
 		);
 	}
+
+	onClickHandler()
+	{
+		alert("Kliknieto dodaj");
+	}
+
 }
 
 export default AppHeader;
