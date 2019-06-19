@@ -1,14 +1,8 @@
 import * as React from "react";
-
 import {connect} from "react-redux";
 import {searchContacts} from "../actions/index";
 
 class ContactsFilter extends React.Component {
-
-	handleSearchChange = (e) => {
-		this.props.searchContacts(e.currentTarget.value);
-	};
-
 	render() {
 		return (
 			<div className="ui icon fluid input">
@@ -22,9 +16,11 @@ class ContactsFilter extends React.Component {
 			</div>
 		);
 	}
+
+	handleSearchChange = (e) => {
+		this.props.searchContacts(e.currentTarget.value);
+	};
 }
-
-
 
 const mapStateToProps = state => {
 	return {

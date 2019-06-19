@@ -6,6 +6,7 @@ import ContactsList from './ContactsList';
 import { connect } from "react-redux";
 import { contactsFetched } from "../actions/index";
 import { ContactsFilterContainer } from "./ConctactsFilter"
+import { getFilteredContacts } from "../selectors/getFilteredContacts";
 
 class App extends Component {
 
@@ -14,8 +15,6 @@ class App extends Component {
 			.then(res => res.json())
 			.then(json => this.props.contactsFetched(json.results));
 	}
-
-
 
 	render() {
 		return (
@@ -45,11 +44,11 @@ const mapStateToProps = (state) => {
 	{
 		isDefined = false;
 	}
-	return {		
-		contacts: state.contacts, // tutaj wsadzimy selektor
+	return {
+		contacts: getFilteredContacts(state.contacts, state.contactsSearch),
 		isLoaded: isDefined
 	}
 };
-const mapDispatchToProps = { contactsFetched }; // (2)
+const mapDispatchToProps = { contactsFetched };
 
-export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App); // (3)
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

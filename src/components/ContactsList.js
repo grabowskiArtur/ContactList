@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-
 import ContactItem from './ContactItem';
 
 class ContactsList extends Component {
@@ -11,6 +10,7 @@ class ContactsList extends Component {
 		const key = contact.login.username;
 		return <ContactItem key={key} avatarUrl={avatarUrl} name={name} phone={phone} />;
 	};
+
 	render() {
 		return (
 			<ul className="ui relaxed divided list selection" >
