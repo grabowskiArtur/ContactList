@@ -3,7 +3,7 @@ export const contactsFetched = (contacts) => ({
 	contacts
 });
 
-export const displayWarning = (isLoaded) => ({
-	type: 'CONTACTS_DID_NOT_LOADED',
-	isLoaded
+export const searchContacts = (text) => ({
+	type: 'SEARCH_CONTACTS',
+	text
 });

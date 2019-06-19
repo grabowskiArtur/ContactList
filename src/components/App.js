@@ -5,7 +5,7 @@ import ContactsList from './ContactsList';
 
 import { connect } from "react-redux";
 import { contactsFetched } from "../actions/index";
-import {displayWarning} from "../actions";
+import { ContactsFilterContainer } from "./ConctactsFilter"
 
 class App extends Component {
 
@@ -15,8 +15,9 @@ class App extends Component {
 			.then(json => this.props.contactsFetched(json.results));
 	}
 
+
+
 	render() {
-		const contacts = this.props.contacts;
 		return (
 			<div>
 				<AppHeader/>
@@ -26,8 +27,10 @@ class App extends Component {
 					<hr/>
 					<hr/>
 					<hr/>
+					<p>Ala ma kota </p>
+					<ContactsFilterContainer />
 					{/* eslint-disable-next-line no-undef */}
-					{contacts ? <ContactsList contacts={contacts} /> : this.props.displayWarning("Loading")}
+					{this.props.isLoaded ? <ContactsList contacts={this.props.contacts} /> : "Loading..."}
 				</main>
 			</div>
 		);
@@ -36,11 +39,17 @@ class App extends Component {
 export default App;
 
 const mapStateToProps = (state) => {
-	return {
-		contacts: state.contacts, // (1)
-		isLoaded: state.isLoaded
+	let isDefined = true;
+	//console.log("state.contacts" + state.contacts);
+	if (state.contacts === 'undefined')
+	{
+		isDefined = false;
+	}
+	return {		
+		contacts: state.contacts, // tutaj wsadzimy selektor
+		isLoaded: isDefined
 	}
 };
-const mapDispatchToProps = { contactsFetched, displayWarning }; // (2)
+const mapDispatchToProps = { contactsFetched }; // (2)
 
 export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App); // (3)
