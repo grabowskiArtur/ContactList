@@ -3,31 +3,20 @@ import React, {Component} from 'react';
 import AppHeader from './AppHeader';
 import ContactsList from './ContactsList';
 
+import { connect } from "react-redux";
+import { contactsFetched } from "../actions/index";
+import {displayWarning} from "../actions";
 
 class App extends Component {
-	state = {
-		contacts: []
-	};
 
 	componentDidMount() {
 		fetch("https://randomuser.me/api/?format=json&results=10")
 			.then(res => res.json())
-			.then(json => this.setState({ contacts: json.results }));
+			.then(json => this.props.contactsFetched(json.results));
 	}
 
-/*	componentDidMount() {
-		var data = require('../data/contacts.json'); // forward slashes will depend on the file location
-
-		for(var i = 0; i < data.length; i++) {
-			var obj = data[i];
-
-			console.log("Name: " + obj.first_name + ", " + obj.last_name);
-		}
-	}*/
-
-
 	render() {
-		const contacts = this.state.contacts;
+		const contacts = this.props.contacts;
 		return (
 			<div>
 				<AppHeader/>
@@ -38,11 +27,20 @@ class App extends Component {
 					<hr/>
 					<hr/>
 					{/* eslint-disable-next-line no-undef */}
-					{contacts ? <ContactsList contacts={contacts} /> : 'Ładowanie…'}
+					{contacts ? <ContactsList contacts={contacts} /> : this.props.displayWarning("Loading")}
 				</main>
 			</div>
 		);
 	}
 }
-
 export default App;
+
+const mapStateToProps = (state) => {
+	return {
+		contacts: state.contacts, // (1)
+		isLoaded: state.isLoaded
+	}
+};
+const mapDispatchToProps = { contactsFetched, displayWarning }; // (2)
+
+export const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App); // (3)
